@@ -35,16 +35,16 @@ include_once("_includes/global-functions.php");
     $isLoggedIn = isset($_SESSION["username"]);
     if ($isLoggedIn) {
 
-        echo "<h2>Your files</h2>";
-        $files_from_user = $fileModel->getFilesByUserId($_SESSION["user_id"]);
+        echo "<h2>Your pages</h2>";
+        
 
-        var_dump($files_from_user);
+
 
         // Kontrollera om användare är inloggad
-        include "_includes/upload-form.php";
+
     } else {
         // om inte, skriv ut ett annat meddelande
-        echo "<p>You need to login in order to upload files</p>";
+        echo "<p>You need to login in order to upload pages</p>";
     }
     ?>
 
