@@ -29,17 +29,67 @@ try {
 }
 
 
-
+function setup_image($pdo)
+{
+    $sql = "CREATE TABLE IF NOT EXISTS `image` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `url` varchar(255) NOT NULL,
+    `page_id` int(11) NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `page_id` (`page_id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  ";
+    $pdo->exec($sql);
+}
 // funktion för att skapa tabellen user
+function setup_page($pdo)
+{
+    $sql = "CREATE TABLE IF NOT EXISTS `page` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `title` varchar(255) NOT NULL,
+    `content` text DEFAULT NULL,
+    `date_created` date NOT NULL DEFAULT current_timestamp(),
+    `user_id` int(11) NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `user_id` (`user_id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  
+  ";
+$pdo->exec($sql);
+}
+
+
 function setup_user($pdo)
 {
     $sql = "CREATE TABLE IF NOT EXISTS `user` (
-        `user_id` int(11) NOT NULL AUTO_INCREMENT,
-        `username` varchar(20) NOT NULL,
-        `password` varchar(255) NOT NULL,
-        PRIMARY KEY (`user_id`)
-       ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
-
-       $pdo->exec($sql);
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `username` varchar(255) NOT NULL,
+    `password` varchar(255) NOT NULL,
+    PRIMARY KEY (`id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  ";
+$pdo->exec($sql);
 }
-?>
+
+function setup_foreignkeys($pdo)
+{
+    $sql = "ALTER TABLE `image`
+ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `page` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Restriktioner för tabell `page`
+--
+ALTER TABLE `page`
+ADD CONSTRAINT `page_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+SET FOREIGN_KEY_CHECKS=1;
+COMMIT;
+
+";
+$pdo->exec($sql);
+}
+setup_user($pdo);
+setup_page($pdo);
+setup_image($pdo);
+
+
+// setup_foreignkeys($pdo);

@@ -9,7 +9,7 @@ services:
             - ./configurations/php.ini:/usr/local/etc/php/php.ini
             - ./configurations/apache2.conf:/etc/apache2/apache2.conf
         ports:
-            - 8024:80
+            - 8034:80
     mysql:
         image: mariadb:latest
         environment:
@@ -20,12 +20,12 @@ services:
         volumes:
             - mysqldata:/var/lib/myql
         ports:
-            - 33062:3306
+            - 33064:3306
     phpmyadmin:
         image: phpmyadmin
         restart: always
         ports:
-            - 8025:80
+            - 8035:80
         environment:
             - PMA_ARBITRARY=1
         depends_on:

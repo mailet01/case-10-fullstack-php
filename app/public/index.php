@@ -6,9 +6,9 @@ $title = "About PHP";
 
 include_once("_includes/database-connection.php");
 include_once("_includes/global-functions.php");
-include_once("_models/File.php");
 
-$fileModel = new File();
+
+
 ?>
 
 <!DOCTYPE html>
