@@ -7,7 +7,6 @@ session_start();
 
 $title = "";
 $content = "";
-
 $user_id = "";
 setup_page($pdo);
 print_r2($_POST);
@@ -61,9 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === "GET" || $_SERVER['REQUEST_METHOD'] === "POST
 
             </p>
 
-
-
-
             <button type="submit">spara</button>
         </form>
 
@@ -72,6 +68,12 @@ if ($_SERVER['REQUEST_METHOD'] === "GET" || $_SERVER['REQUEST_METHOD'] === "POST
     }
 
     ?>
+<?php 
+echo "<nav>";
+
+?>
+
+
 </body>
 
 </html>
