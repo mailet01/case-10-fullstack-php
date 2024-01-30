@@ -18,15 +18,16 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $sql = "INSERT INTO `page` (`title`, `content`, `user_id`) VALUES (?, ?, ?)";
     print($sql);
     $stmt = $pdo->prepare($sql);
-$stmt->execute(['title' => $title, 'content' => $content, 'user_id' => $_SESSION['user_id']]);
-    
-    print($result);
+$stmt->execute([$title, $content, $user_id]);
+
+
 }
 if ($_SERVER['REQUEST_METHOD'] === "GET" || $_SERVER['REQUEST_METHOD'] === "POST") {
     $sql = "SELECT * FROM page";
     $result = $pdo->prepare($sql);
     $result->execute();
     $rows = $result->fetchAll();
+    
 }
 ?>
 <!DOCTYPE html>
