@@ -24,7 +24,7 @@ function render_copyright()
 {
     $year = date("Y");
 
-    echo "&copy; $year Flisa Hedenhös";
+    echo "&copy; $year Emil Näslund";
 }
 
 ?>

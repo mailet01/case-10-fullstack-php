@@ -73,9 +73,6 @@ if($_SESSION['user_id']) {
 
             </p>
 
-
-
-
             <button type="submit" name="Update">spara</button>
             <button type="submit" name="Delete">radera</button>
         </form>
@@ -86,6 +83,10 @@ if($_SESSION['user_id']) {
 }
 
 ?>
+<?php 
+include "_includes/footer.php";
+?>
+
 
 </body>
 </html>

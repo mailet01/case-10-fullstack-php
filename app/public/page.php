@@ -72,7 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] === "GET" || $_SERVER['REQUEST_METHOD'] === "POST
 echo "<nav>";
 
 ?>
-
+<?php 
+include "_includes/footer.php";
+?>
 
 </body>
 
