@@ -1,5 +1,5 @@
 <header>
-    Ett sidhuvud...
+emils bloggapplikation
 
     <?= isset($_SESSION['username']) ? $_SESSION['username'] : ""; ?>
 </header>
@@ -8,6 +8,6 @@
     <a href="login.php">Logga in</a> | 
     <a href="logout.php">Logga ut</a> | 
     <a href="register.php">Registrera</a> | 
-    
+<a href="page.php">skapa en sida</a>
 </nav>
 <hr>
