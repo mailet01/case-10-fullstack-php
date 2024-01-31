@@ -24,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     $id = isset($_GET['id']) ? $_GET['id'] : 0;
     $sql = "SELECT * from page WHERE id = $id";
     $result = $pdo->prepare($sql);
-
     $result->execute();
     $row = $result->fetch();
 
