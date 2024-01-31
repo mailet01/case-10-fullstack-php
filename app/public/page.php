@@ -69,7 +69,17 @@ if ($_SERVER['REQUEST_METHOD'] === "GET" || $_SERVER['REQUEST_METHOD'] === "POST
 
     ?>
 <?php 
+                
 echo "<nav>";
+foreach($rows as $row) {
+    echo '<a href="page_edit.php?id=' . $row['id'] . '">';
+    echo $row['title'] . ", " . $row['content'];
+    echo "</a>";
+    echo "</nav>";
+}    
+
+
+
 
 ?>
 <?php 
