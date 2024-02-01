@@ -6,17 +6,35 @@ session_start();
 $title = "";
 $content = "";
 $user_id = "";
+$id = 0;
 $row = null;
 setup_page($pdo);
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    $id = isset($_POST['id']);
-    $sql = "UPDATE `page` SET `title`='$title',`content`='content', `user_id`='$user_id' WHERE id";
+    $action_delete = isset($_POST['delete']) ? true : false;
+    $id = isset($_POST['id']) ? $_POST['id'] : 0;
+    if ($action_delete) {
+        $sql = "DELETE FROM page WHERE id=$id";
+        $result = $pdo->exec($sql);
+        if ($result) {
+            header("Location: page.php");
+            // die("sidan raderades");
+            exit;
+        }
+    }
+
+    
+    $content = isset($_POST['content']) ? trim($_POST['content']) : "";
+    $title = isset($_POST['title']) ? trim($_POST['title']) : "";
+    $sql = "UPDATE `page` SET `title`= :title,`content`= :content  WHERE id = :id";
     // $result = $pdo->exec($sql);
     print($sql);
     $stmt = $pdo->prepare($sql);
-    $result = $stmt->execute([$title, $content, $user_id]);
+    $stmt->bindParam(":title", $title, pdo::PARAM_STR);
+    $stmt->bindParam(":content", $content, pdo::PARAM_STR);
+    $stmt->bindParam(":id", $id, pdo::PARAM_INT);
+    $result = $stmt->execute();
     if ($result) {
-        // header("Location: page.php? sidan uppdaterades");
+        header("Location: page.php");
         exit;
     }
 }
@@ -33,15 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         $content = $row['content'];
     }
 }
-// $action_delete = isset($_POST['delete']) ? true : false;
-// if ($action_delete) {
-//     $sql = "DELETE FROM page WHERE id=$id";
-//     $result = $pdo->exec($sql);
-//     if ($result) {
-//         header("Location: page.php? sidan raderades");
-//         exit;
-//     }
-// }
 
 ?>
 <!DOCTYPE html>
@@ -68,17 +77,20 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         if ($_SESSION['user_id']) {
 
         ?>
-            <form action="page.php" method="post">
+            <form action="page_edit.php" method="post">
+                <input type="hidden" name="id" value="<?= $id ?>">
+
+
                 <p>
                     <input type="text" name="title" id="title" placeholder="skriv en titel för sidan" value="<?= $title ?>">
                 </p>
                 <p>
-                    <input type="text" name="content" id="content" placeholder="skriv något" value="<?= $content ?>">
+                    <textarea name="content" id="content" cols="30" rows="30"><?= $content ?></textarea>
 
                 </p>
 
                 <button type="submit" name="Update">spara</button>
-                <button type="submit" name="Delete">radera</button>
+                <button type="submit" name="delete">radera</button>
             </form>
         <?php
         }
