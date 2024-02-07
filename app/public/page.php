@@ -4,7 +4,6 @@ $title = "skapa sida";
 include "_includes/database-connection.php";
 include "_includes/global-functions.php";
 session_start();
-
 $title = "";
 $content = "";
 $user_id = "";
@@ -72,16 +71,14 @@ if ($_SERVER['REQUEST_METHOD'] === "GET" || $_SERVER['REQUEST_METHOD'] === "POST
                 
 echo "<nav>";
 foreach($rows as $row) {
-    echo '<a href="page_edit.php?id=' . $row['id'] . '">';
+    echo '<a href="page_edit.php?id=' . $row['id'] . '" target_blank>';
     echo $row['title'] . ", " . $row['content'];
     echo "</a>";
     echo "</nav>";
 }    
 
-
-
-
 ?>
+
 <?php 
 include "_includes/footer.php";
 ?>

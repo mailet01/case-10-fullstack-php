@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         }
     }
 
-    
+
     $content = isset($_POST['content']) ? trim($_POST['content']) : "";
     $title = isset($_POST['title']) ? trim($_POST['title']) : "";
     $sql = "UPDATE `page` SET `title`= :title,`content`= :content  WHERE id = :id";

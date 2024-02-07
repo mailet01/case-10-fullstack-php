@@ -2,12 +2,14 @@
 
 session_start();
 
-$title = "About PHP";
+$title = "startsida";
 
 include_once("_includes/database-connection.php");
 include_once("_includes/global-functions.php");
 
-
+include_once "_models/database.php";
+include_once "_models/page.php";
+$page = new Page();
 
 ?>
 
@@ -25,29 +27,30 @@ include_once("_includes/global-functions.php");
 
     <?php
         include "_includes/header.php";
-    ?>
 
+
+    ?>
+<h1><?=$title?></h1>
     <?php
         include "_includes/error-message.php";
     ?>
+
+<?php
+if($_SERVER['REQUEST_METHOD'] == "GET")
+{
+    $rows = $page->select_all();
+
+    if ($rows) {
+        echo '<ul>';
+        foreach ($rows as $row) {
+            echo '<li>'. $row['title'] .'</li>';
+        }
+        echo '</ul>';
     
-    <?php
-    $isLoggedIn = isset($_SESSION["username"]);
-    if ($isLoggedIn) {
-
-        echo "<h2>Your pages</h2>";
-        
-
-
-
-        // Kontrollera om användare är inloggad
-
-    } else {
-        // om inte, skriv ut ett annat meddelande
-        echo "<p>You need to login in order to upload pages</p>";
+}
     }
-    ?>
-
+    ?>    
+    
     <?php
     include "_includes/footer.php";
     ?>

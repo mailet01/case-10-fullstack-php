@@ -5,7 +5,7 @@ class Database
 
     public $db;
 
-    public function __construct()
+   public function __construct()
     {
 
         // credentials
@@ -32,4 +32,4 @@ class Database
             echo "Connection failed: ";
         }
     }
-}
+}?>
