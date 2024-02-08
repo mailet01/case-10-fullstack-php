@@ -4,10 +4,11 @@ $title = "skapa sida";
 include "_includes/database-connection.php";
 include "_includes/global-functions.php";
 session_start();
-$title = "";
+// $title = "";
 $content = "";
 $user_id = "";
 setup_page($pdo);
+print_r2($_SESSION);
 print_r2($_POST);
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $title = $_POST['title'];
@@ -17,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     print($sql);
     $stmt = $pdo->prepare($sql);
 $stmt->execute([$title, $content, $user_id]);
-
+header("Location: index.php");
 
 }
 if ($_SERVER['REQUEST_METHOD'] === "GET" || $_SERVER['REQUEST_METHOD'] === "POST") {
@@ -46,11 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] === "GET" || $_SERVER['REQUEST_METHOD'] === "POST
     <h1><?= $title ?></h1>
 
 
-    <?php
+     <?php 
     if (isset($_SESSION['user_id'])) {
 
     ?>
-        <form action="page.php" method="post">
+        <form action="page.php" method="post"> 
             <p>
                 <input type="text" name="title" id="title" placeholder="skriv en titel för sidan">
             </p>
@@ -67,18 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET" || $_SERVER['REQUEST_METHOD'] === "POST
     }
 
     ?>
-<?php 
-                
-echo "<nav>";
-foreach($rows as $row) {
-    echo '<a href="page_edit.php?id=' . $row['id'] . '" target_blank>';
-    echo $row['title'] . ", " . $row['content'];
-    echo "</a>";
-    echo "</nav>";
-}    
-
-?>
-
+ 
 <?php 
 include "_includes/footer.php";
 ?>

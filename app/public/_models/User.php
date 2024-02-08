@@ -21,11 +21,11 @@
         // Den ansvara för att starta upp en tabell i databasen om det
         // inte redan finns
         private function setup() {
-            $sql = "CREATE TABLE IF NOT EXISTS `users` (
-                `user_id` int(11) NOT NULL AUTO_INCREMENT,
+            $sql = "CREATE TABLE IF NOT EXISTS `user` (
+                `id` int(11) NOT NULL AUTO_INCREMENT,
                 `username` varchar(20) NOT NULL,
                 `password` varchar(255) NOT NULL,
-                PRIMARY KEY (`user_id`)
+                PRIMARY KEY (`id`)
                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
         
             // Execute query
@@ -38,7 +38,7 @@
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             
             // add to database
-            $stmt = $this->db->prepare("INSERT INTO `users` (`username`, `password`) VALUES (?, ?)");
+            $stmt = $this->db->prepare("INSERT INTO `user` (`username`, `password`) VALUES (?, ?)");
 
             $stmt->execute([$username, $hashed_password]);
 
@@ -47,7 +47,7 @@
 
         public function authenticate($username, $password) {
             // send to database
-            $stmt = "SELECT * FROM `users` WHERE `username` = '$username'";
+            $stmt = "SELECT * FROM `user` WHERE `username` = '$username'";
             $result = $this->db->query($stmt);
             
             $user = $result->fetch();

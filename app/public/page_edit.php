@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $sql = "DELETE FROM page WHERE id=$id";
         $result = $pdo->exec($sql);
         if ($result) {
-            header("Location: page.php");
+            header("Location: index.php");
             // die("sidan raderades");
             exit;
         }
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $stmt->bindParam(":id", $id, pdo::PARAM_INT);
     $result = $stmt->execute();
     if ($result) {
-        header("Location: page.php");
+        header("Location: index.php");
         exit;
     }
 }

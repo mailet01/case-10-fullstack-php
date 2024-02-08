@@ -3,7 +3,10 @@
 session_start();
 
 $title = "startsida";
-
+$content = "";
+$username = "";
+$editlink = "";
+$user_id = $_SESSION['user_id'];
 include_once("_includes/database-connection.php");
 include_once("_includes/global-functions.php");
 
@@ -26,31 +29,51 @@ $page = new Page();
 <body>
 
     <?php
-        include "_includes/header.php";
+    include "_includes/header.php";
 
 
     ?>
-<h1><?=$title?></h1>
+
     <?php
-        include "_includes/error-message.php";
+    // include "_includes/error-message.php";
     ?>
 
-<?php
-if($_SERVER['REQUEST_METHOD'] == "GET")
-{
-    $rows = $page->select_all();
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] == "GET") {
+        $rows = $page->select_all();
 
-    if ($rows) {
-        echo '<ul>';
-        foreach ($rows as $row) {
-            echo '<li>'. $row['title'] .'</li>';
+        if ($rows) {
+            echo '<ul>';
+            foreach ($rows as $row) {
+                echo '<li><a href="index.php?id=' . $row['id'] . '">' . $row['title'] . '</a></li>';
+            }
+            echo '</ul>';
         }
-        echo '</ul>';
-    
-}
     }
-    ?>    
-    
+    if ($_GET) {
+        $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+        $row = $page->select_one($id);
+        // print_r($row);
+
+        if ($row) {
+            $title = $row['title'];
+            $content = $row['content'];
+            $username = $row['username'];
+            if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $row['user_id']) {
+                $editlink = '<a href="page_edit.php?id=' . $id . '">redigera</a>';
+            }
+        }
+    }
+    ?>
+    <main>
+        <h1><?php echo $title; ?></h1>
+        <div><?php echo $content ?></div>
+        <div><?php echo $username ?></div>
+        <?php 
+        echo $editlink;
+        ?>
+    </main>
+
     <?php
     include "_includes/footer.php";
     ?>

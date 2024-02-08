@@ -6,7 +6,7 @@
     include_once("_includes/database-connection.php");
     include_once("_includes/global-functions.php");
     include_once("_models/User.php");
-
+setup_user($pdo);
     $userModel = new User();
 ?>
 
@@ -64,7 +64,7 @@
             // skapa sessionsvariabler som kan användas 
             // TODO: fixa username och user_id
             $_SESSION['username'] = $result['username'];
-            $_SESSION['user_id'] = $result['user_id'];
+            $_SESSION['user_id'] = $result['id'];
 
 
             // redirect to start page

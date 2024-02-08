@@ -28,13 +28,34 @@ class Page extends Database
 public function select_all()
 {
     try {
-        $sql = "SELECT id, title FROM `page`";
+        $sql = "SELECT id, title, user_id FROM `page`";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll();
     } catch (PDOException $err) {
         echo "Felmeddelande: " . $err->getMessage();   
     }
 }
+public function select_one($id)
+    {
+        try {
+            $sql = "SELECT 
+            `page`.`id`, 
+            `page`.`title`, 
+            `page`.`content`, 
+            `user`.`username`,
+            `page`.`user_id` 
+            FROM `page` 
+            INNER JOIN `user` ON `page`.`user_id` = `user`.`id` 
+            WHERE `page`.`id` = :id";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $stmt->fetch();
+        } catch (PDOException $err) {
+            echo "Felmeddelande: " . $err->getMessage();
+        }
+    }
 
 }
 
