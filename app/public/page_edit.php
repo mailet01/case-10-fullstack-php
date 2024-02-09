@@ -92,6 +92,17 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
                 <button type="submit" name="Update">spara</button>
                 <button type="submit" name="delete">radera</button>
             </form>
+            <h1>ladda upp en bild</h1>
+<form action="handleUploads.php" method="post">
+        <fieldset>
+            <legend>Ange bildlänk</legend>
+            <label for="upload">Välj bild</label>
+            <input type="text" name="url" id="url">
+            <input type="hidden" name="page_id" value="<?= $id ?>">
+            <input type="submit" value="Spara">
+        </fieldset>
+    </form>    
+
         <?php
         }
         ?>

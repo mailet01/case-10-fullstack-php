@@ -12,7 +12,9 @@ include_once("_includes/global-functions.php");
 
 include_once "_models/database.php";
 include_once "_models/page.php";
+include "_models/Image.php";
 $page = new Page();
+$image = new Image();
 
 ?>
 
