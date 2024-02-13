@@ -6,12 +6,13 @@ $title = "startsida";
 $content = "";
 $username = "";
 $editlink = "";
+$uploadImage = "";
 $user_id = $_SESSION['user_id'];
 include_once("_includes/database-connection.php");
 include_once("_includes/global-functions.php");
 
-include_once "_models/database.php";
-include_once "_models/page.php";
+include_once "_models/Database.php";
+include_once "_models/Page.php";
 include "_models/Image.php";
 $page = new Page();
 $image = new Image();
@@ -63,6 +64,7 @@ $image = new Image();
             $username = $row['username'];
             if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $row['user_id']) {
                 $editlink = '<a href="page_edit.php?id=' . $id . '">redigera</a>';
+                $uploadImage = '<a href="image.php?id=' . $id . '">ladda upp bild</a>';
             }
         }
     }
@@ -73,6 +75,7 @@ $image = new Image();
         <div><?php echo $username ?></div>
         <?php 
         echo $editlink;
+        echo $uploadImage;
         ?>
     </main>
 

@@ -1,4 +1,5 @@
 <?php 
+include_once "_models/Database.php";
 class Image extends Database
 {
     public function __construct()
@@ -21,11 +22,12 @@ class Image extends Database
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
     }
-public function add_image($url)
+public function add_image($url, $page_id)
 {
-    $stmt = $this->db->prepare("INSERT INTO image (url) VALUES (:url)");
+    $stmt = $this->db->prepare("INSERT INTO image (url, page_id) VALUES (?, ?)");
+    $stmt->bindParam(':page_id', $page_id, PDO::PARAM_INT);
     $stmt->bindParam(':url', $url);
-    $stmt->execute();
+    $stmt->execute([$url, $page_id]);
     return $this->db->lastInsertId();
 }
 public function show_imagesbypage_id($page_id)

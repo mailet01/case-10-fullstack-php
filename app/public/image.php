@@ -1,23 +1,33 @@
 <?php 
-
-
 session_start();
 include_once "_includes/database-connection.php";
 include_once "_includes/global-functions.php";
-include_once "_models/database.php";
-include_once "_models/Page.php";
+include_once "_models/Database.php";
 include_once "_models/Image.php";
+$db = new Database();
+$imageModel = new Image();
 $image_extensions = ["jpg", "jpeg", "png", "gif"];
+$file_extensions = "";
+// $id = 0;
+$page_id = "";
+// if(in_array($file_extensions, $image_extensions)) {
 
-if(in_array($file_extensions, $image_extensions)) {
-
-}
-
-if (isset($_FILES['uploads'])) {
+// }
+if($_SERVER['REQUEST_METHOD'] == "POST") { 
+if (isset($_FILES['upload'])) {
+    $id = isset($_POST['id']) ? (int) $_POST['id'] : 0;
+    $page_id = isset($_POST['page_id']) ? (int) $_POST['page_id'] : 0;
     $file_name = $_FILES['upload']['name'];
     $file_tmp = $_FILES['upload']['tmp_name'];
     $url = "uploads/" . $file_name;
+    
     if (move_uploaded_file($file_tmp, $url)) {
+ $image = $imageModel->add_image($url, $page_id);
+ if($image > 0) {
+    echo "upload sucessfully";
+ }
+ print($sql);
+    } 
     }
 }
 ?>
@@ -30,17 +40,16 @@ if (isset($_FILES['uploads'])) {
 </head>
 <body>
 <h1>ladda upp en bild</h1>
-<form action="handleUploads.php" method="post">
-        <fieldset>
-            <legend>Ange bildlänk</legend>
-            <label for="upload">Välj bild</label>
-            <input type="text" name="url" id="url">
-            <input type="hidden" name="page_id" value="<?= $id ?>">
-            <input type="submit" value="Spara">
-        </fieldset>
-    </form>    
     
-
+<form action="image.php" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Ladda upp bild till sidan</legend>
+            <label for="upload">Välj bild</label>
+            <input type="file" name="upload" id="upload">
+            <input type="hidden" name="page_id" value="<?= $id ?>">
+            <input type="submit" value="Ladda upp">
+        </fieldset>
+    </form>
 
 
 

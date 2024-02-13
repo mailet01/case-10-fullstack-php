@@ -1,5 +1,5 @@
 <?php 
-
+include_once "Database.php";
 class Page extends Database
 {
   public function __construct()
