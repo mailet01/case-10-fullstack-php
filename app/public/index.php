@@ -62,6 +62,16 @@ $image = new Image();
             $title = $row['title'];
             $content = $row['content'];
             $username = $row['username'];
+            $myImages = $image->show_imagesbypage_id($id);
+            if($myImages) {
+
+                $id = isset($_GET['id']) ? $_GET['id'] : 0;
+                          echo '<div>';
+                          foreach ($myImages as $myImage){
+                              echo '<img src="' . $myImage['url'] . '" alt="database image" width="300" height="170"> <br> <br>';
+                          }                
+                          echo "</div>";
+            }
             if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $row['user_id']) {
                 $editlink = '<a href="page_edit.php?id=' . $id . '">redigera</a>';
                 $uploadImage = '<a href="image.php?id=' . $id . '">ladda upp bild</a>';

@@ -6,12 +6,6 @@ $database = "db_case";
 $username = "db_user";
 $password = "db_password";
 
-// credentials
-$servername = "mysql";
-$database = "db_case";
-$username = "db_user";
-$password = "db_password";
-
 // data source name
 $dsn = "mysql:host=$servername;dbname=$database";
 
@@ -40,7 +34,7 @@ function setup_image($pdo)
   KEY `page_id` (`page_id`),
 
  CONSTRAINT `image_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `page` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)";
-// ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  // ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
   $pdo->exec($sql);
 }
 // funktion för att skapa tabellen user
