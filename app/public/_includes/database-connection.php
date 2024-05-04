@@ -83,9 +83,9 @@ COMMIT;
 ";
   $pdo->exec($sql);
 }
-setup_user($pdo);
-setup_page($pdo);
-setup_image($pdo);
+// setup_user($pdo);
+// setup_page($pdo);
+// setup_image($pdo);
 
 
 // setup_foreignkeys($pdo);

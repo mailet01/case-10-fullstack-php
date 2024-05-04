@@ -7,7 +7,7 @@ $content = "";
 $username = "";
 $editlink = "";
 $uploadImage = "";
-$user_id = $_SESSION['user_id'];
+$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
 include_once("_includes/database-connection.php");
 include_once("_includes/global-functions.php");
 
@@ -68,8 +68,8 @@ $image = new Image();
                 $id = isset($_GET['id']) ? $_GET['id'] : 0;
                           echo '<div>';
                           foreach ($myImages as $myImage){
-                              echo '<img src="' . $myImage['url'] . '" alt="database image" width="300" height="170"> <br> <br>';
-                          }                
+                              echo  '<a href="image_delete.php"><img src="' . $myImage['url'] . '" alt="database image" width="300" height="170"> <br> <br>';
+                          }                echo "</a>";
                           echo "</div>";
             }
             if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $row['user_id']) {

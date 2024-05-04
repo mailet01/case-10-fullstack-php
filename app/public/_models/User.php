@@ -10,17 +10,17 @@
     // 1. Börja med att göra en tom class 'User' som ärver från Database
     class User extends Database {
 
-        function __construct() {
+ function __construct() {
             // 1. få kontakt med databasen i vår docker-compose
             parent::__construct();
             // 2. gör något extra som är specifikt för User
-            $this->setup();
+            
         }
 
         // Denna metoden ska köras när en UserModel skapas
         // Den ansvara för att starta upp en tabell i databasen om det
         // inte redan finns
-        private function setup() {
+        public function setup() {
             $sql = "CREATE TABLE IF NOT EXISTS `user` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
                 `username` varchar(20) NOT NULL,

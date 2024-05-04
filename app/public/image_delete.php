@@ -21,16 +21,18 @@ if (isset($_FILES['upload'])) {
     $file_tmp = $_FILES['upload']['tmp_name'];
     $url = "uploads/" . $file_name;
     
-    if (move_uploaded_file($file_tmp, $url)) {
- $image = $imageModel->add_image($url, $page_id);
+    if (unlink($page_image['url'])) {
+ $image = $imageModel->delete_image($id);
  if($image > 0) {
-    echo "upload successfully";
+    echo "delete successfully";
 header("Location: index.php");
  print_r2($image);    } 
     }
 }
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,31 +41,14 @@ header("Location: index.php");
     <title>Document</title>
 </head>
 <body>
-<h1>ladda upp en bild</h1>
-
-<?php
- 
-// form to upload image
-if (isset($_SESSION['user_id'])) {
-    $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
-?>
-<?php
-}
- 
-
-?>    
-<form action="image.php" method="post" enctype="multipart/form-data">
-        <fieldset>
-            <legend>Ladda upp bild till sidan</legend>
-            <label for="upload">Välj bild</label>
-            <input type="file" name="upload" id="upload">
+<form action="index.php" method="post" enctype="multipart/form-data">
+            
+            <input type="file" name="delete" id="delete">
             <input type="hidden" name="page_id" value="<?= $id ?>">
-            <input type="submit" value="Ladda upp">
-        </fieldset>
+            <input type="submit" value="radera bild">
+            
+        
     </form>
-
-
-
 
 </body>
 </html>

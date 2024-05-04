@@ -5,7 +5,7 @@ class Image extends Database
     public function __construct()
     {
         parent::__construct();
-        $this->setup();
+        
     }
 
     public function setup()
