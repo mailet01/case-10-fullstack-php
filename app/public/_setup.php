@@ -14,3 +14,4 @@ $page->setup();
 $image->setup();
 ?>
 
+<a href="/">applikationen är nu installerad. Klicka här för att gå till startsidan</a>

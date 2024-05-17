@@ -1,4 +1,5 @@
 <?php 
+$title = "Radera bild";
 session_start();
 include_once "_includes/database-connection.php";
 include_once "_includes/global-functions.php";
@@ -10,26 +11,29 @@ $image_extensions = ["jpg", "jpeg", "png", "gif"];
 $file_extensions = "";
 // $id = 0;
 $page_id = "";
-// if(in_array($file_extensions, $image_extensions)) {
-
-// }
 if($_SERVER['REQUEST_METHOD'] == "POST") { 
-if (isset($_FILES['upload'])) {
     $id = isset($_POST['id']) ? (int) $_POST['id'] : 0;
-    $page_id = isset($_POST['page_id']) ? (int) $_POST['page_id'] : 0;
-    $file_name = $_FILES['upload']['name'];
-    $file_tmp = $_FILES['upload']['tmp_name'];
-    $url = "uploads/" . $file_name;
-    
-    if (unlink($page_image['url'])) {
- $image = $imageModel->delete_image($id);
- if($image > 0) {
-    echo "delete successfully";
+    // $page_id = isset($_POST['page_id']) ? (int) $_POST['page_id'] : 0;
+    $sql = "SELECT * FROM `image` WHERE id= :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam('id', $id, PDO::PARAM_INT);
+$stmt->execute();
+    $row = $stmt->fetch();
+ if(unlink($row['url'])) {
 header("Location: index.php");
- print_r2($image);    } 
+}
+$image = $imageModel->delete_image($id);
+if($image > 0) {
+    echo "delete successfully";
+
+ 
+} 
     }
-}
-}
+    if ($_SERVER['REQUEST_METHOD'] === "GET") {
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+    }
+    
+
 ?>
 
 
@@ -38,14 +42,26 @@ header("Location: index.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><?= $title ?></title>
 </head>
 <body>
-<form action="index.php" method="post" enctype="multipart/form-data">
+<?php 
+include_once "_includes/header.php";
+
+?>
+<h1><?= $title ?></h1>
+<form action="" method="post">
+            <p>
+Är du säker på att du vill ta bort den valda bilden?
+
+
+            </p>
+            <p>
+<button type="submit" name="Delete">ja</button>
+
+            </p>
+            <input type="hidden" name="id" value="<?= $id ?>">
             
-            <input type="file" name="delete" id="delete">
-            <input type="hidden" name="page_id" value="<?= $id ?>">
-            <input type="submit" value="radera bild">
             
         
     </form>

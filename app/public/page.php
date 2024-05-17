@@ -8,14 +8,14 @@ session_start();
 $content = "";
 $user_id = "";
 setup_page($pdo);
-print_r2($_SESSION);
-print_r2($_POST);
+
+
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $title = $_POST['title'];
     $content = $_POST['content'];
     $user_id = $_SESSION['user_id'];
     $sql = "INSERT INTO `page` (`title`, `content`, `user_id`) VALUES (?, ?, ?)";
-    print($sql);
+    
     $stmt = $pdo->prepare($sql);
 $stmt->execute([$title, $content, $user_id]);
 header("Location: index.php");

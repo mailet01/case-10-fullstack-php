@@ -24,10 +24,10 @@ class Image extends Database
     }
 public function add_image($url, $page_id)
 {
-    $stmt = $this->db->prepare("INSERT INTO image (url, page_id) VALUES (?, ?)");
+    $stmt = $this->db->prepare("INSERT INTO image (url, page_id) VALUES (:url, :page_id)");
     $stmt->bindParam(':page_id', $page_id, PDO::PARAM_INT);
-    $stmt->bindParam(':url', $url);
-    $stmt->execute([$url, $page_id]);
+    $stmt->bindParam(':url', $url, PDO::PARAM_STR);
+    $stmt->execute();
     return $this->db->lastInsertId();
 }
 public function show_imagesbypage_id($page_id)

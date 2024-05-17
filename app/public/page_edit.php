@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     $row = $result->fetch();
 
     if ($row) {
-        print_r($row);
+        
         $title = $row['title'];
         $content = $row['content'];
     }

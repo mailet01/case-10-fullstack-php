@@ -26,7 +26,7 @@ if (isset($_FILES['upload'])) {
  if($image > 0) {
     echo "upload successfully";
 header("Location: index.php");
- print_r2($image);    } 
+ } 
     }
 }
 }
