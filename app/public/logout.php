@@ -4,7 +4,7 @@ session_start();
 
 // logga ut användare genom att använda session destroy
 session_destroy();
-
+$_SESSION = [];
 ?>
 
 <!DOCTYPE html>
