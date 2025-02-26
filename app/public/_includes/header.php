@@ -15,11 +15,12 @@ if(isset($_SESSION['user_id'])) {
 } else {
 ?>
 
+
+
     <a href="login.php">Logga in</a> | 
-
-
-    ?>
 <?php
+
+
 }
 ?>
     <a href="register.php">Registrera</a> | 
